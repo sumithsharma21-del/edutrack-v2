@@ -95,11 +95,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInDemo();
       return { error: null };
     }
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: fullName } },
     });
+
+    if (!error && data.user) {
+      // Create empty profile for new user
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          full_name: fullName,
+          email: email,
+        });
+      if (profileError) return { error: profileError.message };
+    }
+
     return { error: error?.message ?? null };
   };
 
