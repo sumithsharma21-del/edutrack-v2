@@ -22,8 +22,21 @@ export default function SignupPage() {
     if (password.length < 6) { setError('Password must be at least 6 characters'); return; }
     setLoading(true);
     const { error: err } = await signUp(email, password, fullName);
-    if (err) setError(err);
-    else setSuccess(true);
+
+    if (err) {
+      // Handle specific Supabase errors
+      if (err.includes('already registered') || err.includes('User already exists')) {
+        setError('This email is already registered. Please sign in or use a different email.');
+      } else if (err.includes('rate limit') || err.includes('too many')) {
+        setError('Too many signup attempts. Please wait a few minutes before trying again.');
+      } else if (err.includes('invalid') || err.includes('format')) {
+        setError('Invalid email format. Please enter a valid email address.');
+      } else {
+        setError(err);
+      }
+    } else {
+      setSuccess(true);
+    }
     setLoading(false);
   };
 
