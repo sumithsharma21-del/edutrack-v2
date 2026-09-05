@@ -97,7 +97,7 @@ export default function AnalyticsPage() {
           <h3 className="font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Marks Distribution</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
-              <Pie data={distributionData.filter(d => d.count > 0)} dataKey="count" nameKey="name" cx="50%" cy="50%" outerRadius={90} label={({ name, count }) => `${name}: ${count}`}>
+              <Pie data={distributionData.filter(d => d.count > 0)} dataKey="count" nameKey="name" cx="50%" cy="50%" outerRadius={90} label={(props: any) => `${props.name}: ${props.count}`}>
                 {distributionData.filter(d => d.count > 0).map((d, i) => <Cell key={i} fill={d.color} />)}
               </Pie>
               <Tooltip />
