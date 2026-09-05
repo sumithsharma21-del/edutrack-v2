@@ -66,15 +66,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               to={item.to}
               onClick={onClose}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
                 location.pathname.startsWith(item.to)
-                  ? 'bg-primary-50 text-primary-600 dark:bg-primary-950 dark:text-primary-400'
-                  : 'hover:bg-[var(--bg-tertiary)]'
+                  ? 'bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 shadow-sm border-l-4 border-primary-600 dark:from-primary-950 dark:to-primary-900 dark:text-primary-300'
+                  : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
               )}
-              style={location.pathname.startsWith(item.to) ? {} : { color: 'var(--text-secondary)' }}
             >
               <item.icon className="w-5 h-5" />
-              {item.label}
+              <span>{item.label}</span>
             </NavLink>
           ))}
         </nav>
@@ -86,15 +85,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               to={item.to}
               onClick={onClose}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
                 location.pathname === item.to
-                  ? 'bg-primary-50 text-primary-600 dark:bg-primary-950 dark:text-primary-400'
-                  : 'hover:bg-[var(--bg-tertiary)]'
+                  ? 'bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 shadow-sm border-l-4 border-primary-600 dark:from-primary-950 dark:to-primary-900 dark:text-primary-300'
+                  : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
               )}
-              style={location.pathname === item.to ? {} : { color: 'var(--text-secondary)' }}
             >
               <item.icon className="w-5 h-5" />
-              {item.label}
+              <span>{item.label}</span>
             </NavLink>
           ))}
           <button
